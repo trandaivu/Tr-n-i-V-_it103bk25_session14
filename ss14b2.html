@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách sản phẩm</title>
+</head>
+
+<body>
+    <h1>Danh Sách Sản Phẩm Chợ Tết</h1>
+
+    <ul id="list"></ul>
+
+    <form id="add-form">
+        <input type="text" id="name-input" placeholder="Tên sản phẩm">
+        <input type="number" id="price-input" placeholder="Giá (VND)">
+        <button type="submit">Thêm Sản Phẩm</button>
+    </form>
+
+    <script>
+        const items = [
+            { id: 1, title: "Bánh Chưng", cost: 150000 },
+            { id: 2, title: "Giò Lụa", cost: 180000 },
+            { id: 3, title: "Cành Đào", cost: 500000 },
+            { id: 4, title: "Mứt Tết", cost: 120000 },
+            { id: 5, title: "Bao Lì Xì", cost: 25000 },
+            { id: 6, title: "Dưa Hấu Tết", cost: 80000 }
+        ];
+
+        const listContainer = document.getElementById("list");
+        const addForm = document.getElementById("add-form");
+        const inputName = document.getElementById("name-input");
+        const inputPrice = document.getElementById("price-input");
+
+        function showItem(item) {
+
+            const li = document.createElement("li");
+            li.className = "product-item";
+
+            const itemName = document.createElement("p");
+            itemName.textContent = item.title;
+
+            const itemPrice = document.createElement("p");
+            itemPrice.textContent = item.cost + " VND";
+
+            li.appendChild(itemName);
+            li.appendChild(itemPrice);
+
+            listContainer.appendChild(li);
+        }
+
+        items.forEach(function (item) {
+            showItem(item);
+        });
+
+        addForm.addEventListener("submit", function (e) {
+
+            e.preventDefault();
+
+            const nameValue = inputName.value;
+            const priceValue = inputPrice.value;
+
+            const newItem = {
+                id: items.length + 1,
+                title: nameValue,
+                cost: priceValue
+            };
+
+            items.push(newItem);
+
+            showItem(newItem);
+
+            inputName.value = "";
+            inputPrice.value = "";
+        });
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

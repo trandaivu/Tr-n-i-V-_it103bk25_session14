@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách sản phẩm</title>
+</head>
+
+<body>
+
+<h1>Danh Sách Sản Phẩm Chợ Tết</h1>
+
+<ul id="product-area"></ul>
+
+<form id="add-product-form">
+    <input type="text" id="name-field" placeholder="Tên sản phẩm">
+    <input type="number" id="price-field" placeholder="Giá (VND)">
+    <button type="submit">Thêm Sản Phẩm</button>
+</form>
+
+<script>
+
+const goods = [
+    { id: 1, title: "Bánh Chưng", cost: 150000 },
+    { id: 2, title: "Giò Lụa", cost: 180000 },
+    { id: 3, title: "Cành Đào", cost: 500000 },
+    { id: 4, title: "Mứt Tết", cost: 120000 },
+    { id: 5, title: "Bao Lì Xì", cost: 25000 },
+    { id: 6, title: "Dưa Hấu Tết", cost: 80000 }
+];
+
+const listBox = document.getElementById("product-area");
+const addProductForm = document.getElementById("add-product-form");
+const nameField = document.getElementById("name-field");
+const priceField = document.getElementById("price-field");
+
+function formatMoney(value){
+    return Number(value).toLocaleString("vi-VN") + " VND";
+}
+
+function displayItem(item){
+
+    const li = document.createElement("li");
+
+    const title = document.createElement("span");
+    title.textContent = item.title + " - ";
+
+    const cost = document.createElement("span");
+    cost.textContent = formatMoney(item.cost);
+
+    const btnEdit = document.createElement("button");
+    btnEdit.textContent = "Sửa giá";
+
+    btnEdit.onclick = function(){
+
+        const newValue = prompt("Nhập giá mới:");
+
+        if(newValue){
+            cost.textContent = formatMoney(newValue);
+        }
+
+    }
+
+    const btnDelete = document.createElement("button");
+    btnDelete.textContent = "Xóa";
+
+    btnDelete.onclick = function(){
+
+        if(confirm("Bạn có chắc muốn xóa sản phẩm này?")){
+            li.remove();
+        }
+
+    }
+
+    li.appendChild(title);
+    li.appendChild(cost);
+    li.appendChild(btnEdit);
+    li.appendChild(btnDelete);
+
+    listBox.appendChild(li);
+
+}
+
+goods.forEach(function(item){
+    displayItem(item);
+});
+
+addProductForm.addEventListener("submit", function(e){
+
+    e.preventDefault();
+
+    const newItem = {
+        id: goods.length + 1,
+        title: nameField.value,
+        cost: priceField.value
+    };
+
+    goods.push(newItem);
+
+    displayItem(newItem);
+
+    nameField.value = "";
+    priceField.value = "";
+
+});
+
+</script>
+
+</body>
+</html>
