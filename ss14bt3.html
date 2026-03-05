@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body> 
+        <h1>Danh Sách Sản Phẩm Cho Tết</h1>
+        <ul id="product-list"></ul>
+        <form id="product-form">
+        <input type="text" id="product-name" placeholder="Tên sản phẩm">
+        <input type="number" id="product-price" placeholder="Giá (VND)">
+        <button type="submit">Thêm Sản Phẩm</button>
+            </form>
+        
+    <script>
+        
+        const products = [
+        { id: 1, name: "Bánh Chưng", price: 150000 },
+        { id: 2, name: "Giò Lụa", price: 100000 },
+        { id: 3, name: "Cánh Gà", price: 50000 },
+        { id: 4, name: "Há Cảo", price: 25000 },
+        { id: 5, name: "Bò Viên", price: 20000 },
+        { id: 6, name: "Dưa Hấu Tết", price: 80000 }
+
+        ];
+
+        let productList = document.getElementById("product-list");
+        products.forEach(function(product){
+            
+        let li = document.createElement("li");
+        li.className = "product-item";
+        li.textContent = product.name + " - " + product.price + " VND ";
+        let deleteBtn = document.createElement("button");
+        deleteBtn.className = "delete-btn";
+        deleteBtn.textContent = "Xóa";
+
+        deleteBtn.onclick = function(){
+        let confirmDelete = confirm("Bạn có chắc muốn xóa sản phẩm này?");
+
+        if(confirmDelete){
+        li.remove();
+            }
+        };
+    
+    li.appendChild(deleteBtn); 
+    productList.appendChild(li);
+        
+        });
+
+</script>
+
+</body>
+</html>
+</body>
+</html>
